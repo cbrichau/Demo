@@ -17,5 +17,7 @@ exports.articlesSchemas = {
     schemaGenerator(Article, {})
   ),
 
+  "Response.Success.Update.Article": successSchemas.update("article"),
+
   "Response.Success.Delete.Article": successSchemas.delete(),
 };

@@ -14,11 +14,11 @@ getBaseSuccessSchema = () => {
   };
 };
 
-exports.createOne = (datakey) => {
+exports.createOne = (model) => {
   let schema = getBaseSuccessSchema();
 
   schema.properties.data.properties = {
-    [datakey]: {
+    [model]: {
       type: "object",
       properties: {
         id: {
@@ -32,11 +32,11 @@ exports.createOne = (datakey) => {
   return schema;
 };
 
-exports.readAll = (datakey, itemsSchema) => {
+exports.readAll = (model, itemsSchema) => {
   let schema = getBaseSuccessSchema();
 
   schema.properties.data.properties = {
-    [datakey]: {
+    [model]: {
       type: "array",
       items: itemsSchema,
     },
@@ -45,11 +45,29 @@ exports.readAll = (datakey, itemsSchema) => {
   return schema;
 };
 
-exports.readOne = (datakey, itemSchema) => {
+exports.readOne = (model, itemSchema) => {
   let schema = getBaseSuccessSchema();
 
   schema.properties.data.properties = {
-    [datakey]: itemSchema,
+    [model]: itemSchema,
+  };
+
+  return schema;
+};
+
+exports.update = (model) => {
+  let schema = getBaseSuccessSchema();
+
+  schema.properties.data.properties = {
+    [model]: {
+      type: "object",
+      properties: {
+        id: {
+          type: "string",
+          example: "1",
+        },
+      },
+    },
   };
 
   return schema;

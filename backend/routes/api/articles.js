@@ -1,5 +1,5 @@
-const express = require('express');
-const controller = require('../../controllers/articles.js');
+const express = require("express");
+const controller = require("../../controllers/articles.js");
 
 const router = express.Router();
 
@@ -26,7 +26,7 @@ const router = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Response.Success.CreateOne.Article'
  */
-router.post('/', controller.createOne);
+router.post("/", controller.createOne);
 
 /* ************************************************** *\
 	Read
@@ -39,11 +39,6 @@ router.post('/', controller.createOne);
  *     summary: Fetches all the articles.
  *     tags:
  *       - Articles
- *     parameters:
- *       - name: language
- *         in: query
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         content:
@@ -51,21 +46,15 @@ router.post('/', controller.createOne);
  *             schema:
  *               $ref: '#/components/schemas/Response.Success.ReadAll.Article'
  */
-router.get('/', controller.readAll);
+router.get("/", controller.readAll);
 
 /**
  * @openapi
  * /api/articles/{id}:
  *   get:
- *     summary: Fetches one article, including its comments.
+ *     summary: Fetches one article.
  *     tags:
  *       - Articles
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: string
  *     responses:
  *       200:
  *         content:
@@ -73,7 +62,7 @@ router.get('/', controller.readAll);
  *             schema:
  *               $ref: '#/components/schemas/Response.Success.ReadOne.Article'
  */
-router.get('/:id', controller.readOne);
+router.get("/:id", controller.readOne);
 
 /* ************************************************** *\
 	Update
@@ -102,9 +91,9 @@ router.get('/:id', controller.readOne);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.Change'
+ *               $ref: '#/components/schemas/Response.Success.Update.Article'
  */
-router.patch('/:id', controller.updateOne);
+router.patch("/:id", controller.updateOne);
 
 /* ************************************************** *\
 	Delete
@@ -114,7 +103,7 @@ router.patch('/:id', controller.updateOne);
  * @openapi
  * /api/articles/{id}:
  *   delete:
- *     summary: Deletes an article, including its comments.
+ *     summary: Deletes an article.
  *     tags:
  *       - Articles
  *     parameters:
@@ -128,8 +117,8 @@ router.patch('/:id', controller.updateOne);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.Change'
+ *               $ref: '#/components/schemas/Response.Success.Delete.Article'
  */
-router.delete('/:id', controller.deleteOne);
+router.delete("/:id", controller.deleteOne);
 
 module.exports = router;
