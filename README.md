@@ -10,3 +10,7 @@
 # Getting started
 
 See the [backend](https://github.com/cbrichau/Demo/tree/master/backend)'s and [frontend](https://github.com/cbrichau/Demo/tree/master/frontend)'s READMEs.
+
+# Sneak peek
+
+![peek](https://github.com/cbrichau/Demo/blob/master/sneak-peek.png)

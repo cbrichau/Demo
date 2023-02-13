@@ -18,13 +18,13 @@ const router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Payload.Article'
+ *             $ref: '#/components/schemas/Article.Payload'
  *     responses:
  *       201:
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.CreateOne.Article'
+ *               $ref: '#/components/schemas/Article.CreateOne.Response.Success'
  */
 router.post("/", controller.createOne);
 
@@ -44,7 +44,7 @@ router.post("/", controller.createOne);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.ReadAll.Article'
+ *               $ref: '#/components/schemas/Article.ReadAll.Response.Success'
  */
 router.get("/", controller.readAll);
 
@@ -55,12 +55,18 @@ router.get("/", controller.readAll);
  *     summary: Fetches one article.
  *     tags:
  *       - Articles
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.ReadOne.Article'
+ *               $ref: '#/components/schemas/Article.ReadOne.Response.Success'
  */
 router.get("/:id", controller.readOne);
 
@@ -85,13 +91,13 @@ router.get("/:id", controller.readOne);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Payload.Article'
+ *             $ref: '#/components/schemas/Article.Payload'
  *     responses:
  *       200:
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.Update.Article'
+ *               $ref: '#/components/schemas/Article.Update.Response.Success'
  */
 router.patch("/:id", controller.updateOne);
 
@@ -117,7 +123,7 @@ router.patch("/:id", controller.updateOne);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Response.Success.Delete.Article'
+ *               $ref: '#/components/schemas/Article.Delete.Response.Success'
  */
 router.delete("/:id", controller.deleteOne);
 

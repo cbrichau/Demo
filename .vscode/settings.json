@@ -1,13 +1,21 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 
-  // Controls whether editor.tabSize and editor.insertSpaces are automatically set based on the file contents.
-  "editor.detectIndentation": false,
+	// Controls whether a space character is inserted when commenting.
+	"editor.comments.insertSpace": true,
 
-  // Controls whether pressing Tab inserts spaces instead.
-  "editor.insertSpaces": false,
+	// Controls whether editor.tabSize and editor.insertSpaces are automatically set based on the file contents.
+	"editor.detectIndentation": false,
 
-  // The number of spaces a tab is equal to.
-  "editor.tabSize": 2
+	// Controls whether pressing Tab inserts spaces instead.
+	"editor.insertSpaces": false,
+	"prettier.useTabs": true,
+
+	// The number of spaces a tab is equal to.
+	"editor.tabSize": 2,
+	"prettier.tabWidth": 2,
+
+	// Remove trailing auto inserted whitespace.
+	"editor.trimAutoWhitespace": true
 }

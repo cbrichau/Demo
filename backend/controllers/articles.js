@@ -5,7 +5,7 @@ const Article = require("../models/Article.js");
 \* ************************************************** */
 
 exports.createOne = async (req, res) => {
-  let article = await new Article(req.body).save();
+  const article = await new Article(req.body).save();
 
   return res.status(201).json({
     status: "success",

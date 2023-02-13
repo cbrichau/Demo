@@ -3,21 +3,21 @@ const schemaGenerator = require("mongoose-to-swagger");
 const successSchemas = require("./templates/successSchemas");
 
 exports.articlesSchemas = {
-  "Payload.Article": schemaGenerator(Article, { omitFields: ["_id"] }),
+  "Article.Payload": schemaGenerator(Article, { omitFields: ["_id"] }),
 
-  "Response.Success.CreateOne.Article": successSchemas.createOne("article"),
+  "Article.CreateOne.Response.Success": successSchemas.createOne("article"),
 
-  "Response.Success.ReadAll.Article": successSchemas.readAll(
+  "Article.ReadAll.Response.Success": successSchemas.readAll(
     "articles",
     schemaGenerator(Article, {})
   ),
 
-  "Response.Success.ReadOne.Article": successSchemas.readOne(
+  "Article.ReadOne.Response.Success": successSchemas.readOne(
     "article",
     schemaGenerator(Article, {})
   ),
 
-  "Response.Success.Update.Article": successSchemas.update("article"),
+  "Article.Update.Response.Success": successSchemas.update("article"),
 
-  "Response.Success.Delete.Article": successSchemas.delete(),
+  "Article.Delete.Response.Success": successSchemas.delete(),
 };
