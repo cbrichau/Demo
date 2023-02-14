@@ -1,19 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const {
-  openapiServe,
-  openapiSetup,
+	openapiServe,
+	openapiSetup,
 } = require("../../middlewares/openapi/index.js");
 
 router.use("/docs", openapiServe, openapiSetup);
 
-const routes = [
-  "articles",
-  // "",
-];
+const routes = ["authentication", "articles"];
 
 routes.forEach((route) => {
-  router.use("/" + route, require("./" + route + ".js"));
+	router.use("/" + route, require("./" + route + ".js"));
 });
 
 module.exports = router;
