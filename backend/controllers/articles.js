@@ -5,14 +5,14 @@ const Article = require("../models/Article.js");
 \* ************************************************** */
 
 exports.createOne = async (req, res) => {
-  const article = await new Article(req.body).save();
+	const article = await new Article(req.body).save();
 
-  return res.status(201).json({
-    status: "success",
-    data: {
-      article: { id: article._id },
-    },
-  });
+	return res.status(201).json({
+		status: "success",
+		data: {
+			article: { id: article._id },
+		},
+	});
 };
 
 /* ************************************************** *\
@@ -20,31 +20,31 @@ exports.createOne = async (req, res) => {
 \* ************************************************** */
 
 exports.readAll = async (req, res) => {
-  const where = {};
-  // if (req.query.property !== undefined)
-  // {
-  // 	where.property = req.query.property;
-  // }
+	const where = {};
+	// if (req.query.property !== undefined)
+	// {
+	// 	where.property = req.query.property;
+	// }
 
-  const articles = await Article.find(where).exec();
+	const articles = await Article.find(where).exec();
 
-  return res.status(200).json({
-    status: "success",
-    data: {
-      articles: articles,
-    },
-  });
+	return res.status(200).json({
+		status: "success",
+		data: {
+			articles: articles,
+		},
+	});
 };
 
 exports.readOne = async (req, res) => {
-  const article = await Article.findById(req.params.id).exec();
+	const article = await Article.findById(req.params.id).exec();
 
-  return res.status(200).json({
-    status: "success",
-    data: {
-      article: article,
-    },
-  });
+	return res.status(200).json({
+		status: "success",
+		data: {
+			article: article,
+		},
+	});
 };
 
 /* ************************************************** *\
@@ -52,18 +52,18 @@ exports.readOne = async (req, res) => {
 \* ************************************************** */
 
 exports.updateOne = async (req, res) => {
-  const article = await Article.findOneAndUpdate(
-    { _id: req.params.id },
-    { $set: req.body },
-    { new: true }
-  );
+	const article = await Article.findOneAndUpdate(
+		{ _id: req.params.id },
+		{ $set: req.body },
+		{ new: true }
+	);
 
-  return res.status(200).json({
-    status: "success",
-    data: {
-      article: { id: article._id },
-    },
-  });
+	return res.status(200).json({
+		status: "success",
+		data: {
+			article: { id: article._id },
+		},
+	});
 };
 
 /* ************************************************** *\
@@ -71,19 +71,21 @@ exports.updateOne = async (req, res) => {
 \* ************************************************** */
 
 exports.deleteOne = async (req, res) => {
-  const response = await Article.remove({
-    _id: req.params.id,
-  });
+	const response = await Article.remove({
+		_id: req.params.id,
+	});
 
-  if (response.deletedCount === 0) {
-    return res.status(400).json({
-      status: "fail",
-      data: { id: "The provided id is invalid." },
-    });
-  }
+	if (response.deletedCount === 0) {
+		return res.status(400).json({
+			status: "fail",
+			data: {
+				errors: ["Invalid id"],
+			},
+		});
+	}
 
-  return res.status(200).json({
-    status: "success",
-    data: null,
-  });
+	return res.status(200).json({
+		status: "success",
+		data: null,
+	});
 };

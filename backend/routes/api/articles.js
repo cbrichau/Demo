@@ -124,6 +124,11 @@ router.patch("/:id", controller.updateOne);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Article.Delete.Response.Success'
+ *       400:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Article.Delete.Response.Fail.400'
  */
 router.delete("/:id", controller.deleteOne);
 

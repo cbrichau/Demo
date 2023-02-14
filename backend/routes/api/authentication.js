@@ -35,20 +35,17 @@ const router = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 status:
- *                   type: string
- *                   example: "success"
- *                 data:
- *                   type: object
- *                   properties:
- *                     user:
- *                       type: object
- *                       properties:
- *                         id:
- *                           type: string
- *                           example: "success"
+ *               $ref: '#/components/schemas/Authentication.SignUp.Response.Success'
+ *       400:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Authentication.SignUp.Response.Fail.400'
+ *       409:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Authentication.SignUp.Response.Fail.409'
  */
 router.post("/sign-up", controller.signUp);
 
@@ -92,6 +89,11 @@ router.post("/sign-up", controller.signUp);
  *                     jwt:
  *                       type: string
  *                       example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTVlMDlkMzZjZDkyZGZlZTQzZGIyOCIsImVtYWlsIjoiY2xpby5icmljaGF1dEBnbWFpbC5jb20iLCJpYXQiOjE2NTUwNDA3NzQsImV4cCI6MTY1NTA0Nzk3NH0.elznkoMFJwRrtbgsNJvoXnOWdFQgM9rp358r-3tcOwg"
+ *       401:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Authentication.SignIn.Response.Fail.401'
  */
 router.post("/sign-in", controller.signIn);
 

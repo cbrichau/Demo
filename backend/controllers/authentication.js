@@ -21,14 +21,24 @@ exports.signUp = async (req, res) => {
 	}
 
 	if (errors.length != 0) {
-		return res.status(400).json({ errors: errors });
+		return res.status(400).json({
+			status: "fail",
+			data: {
+				errors: errors,
+			},
+		});
 	}
 
 	email = email.toLowerCase();
 	const existingUser = await User.findOne({ email: email }).exec();
 
 	if (existingUser) {
-		return res.status(409).json({ errors: ["User already exists"] });
+		return res.status(409).json({
+			status: "fail",
+			data: {
+				errors: ["User already exists"],
+			},
+		});
 	}
 
 	const user = await new User({
@@ -53,14 +63,24 @@ exports.signIn = async (req, res) => {
 	let errors = [];
 
 	if (!email || !password) {
-		return res.status(400).json({ errors: ["Missing credentials"] });
+		return res.status(401).json({
+			status: "fail",
+			data: {
+				errors: ["Missing credentials"],
+			},
+		});
 	}
 
 	email = email.toLowerCase();
 	const user = await User.findOne({ email: email }).exec();
 
 	if (!user) {
-		return res.status(401).json({ errors: ["Invalid credentials"] });
+		return res.status(401).json({
+			status: "fail",
+			data: {
+				errors: ["Invalid credentials"],
+			},
+		});
 	}
 
 	const passwordIsValid = await bcrypt.compare(
@@ -69,7 +89,12 @@ exports.signIn = async (req, res) => {
 	);
 
 	if (!passwordIsValid) {
-		return res.status(401).json({ errors: ["Invalid credentials"] });
+		return res.status(401).json({
+			status: "fail",
+			data: {
+				errors: ["Invalid credentials"],
+			},
+		});
 	}
 
 	const jwtPayload = {
