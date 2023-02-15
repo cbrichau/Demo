@@ -1,8 +1,9 @@
 const swaggerUi = require("swagger-ui-express"); // Creates the Swagger UI page from the given definitions.
 const swaggerJsdoc = require("swagger-jsdoc"); // Generates OpenAPI definitions from JSDoc comments.
 
-const { authenticationSchemas } = require("./authentication.js");
 const { articlesSchemas } = require("./articles.js");
+const { authenticationSchemas } = require("./authentication.js");
+const { usersSchemas } = require("./users.js");
 
 const swaggerDoc = swaggerJsdoc({
 	definition: {
@@ -13,10 +14,25 @@ const swaggerDoc = swaggerJsdoc({
 		},
 		components: {
 			schemas: {
-				...authenticationSchemas,
 				...articlesSchemas,
+				...authenticationSchemas,
+				...usersSchemas,
+			},
+			securitySchemes: {
+				JWT: {
+					name: "Authorization",
+					type: "http",
+					in: "header",
+					scheme: "bearer",
+					bearerFormat: "JWT",
+				},
 			},
 		},
+		security: [
+			{
+				JWT: [],
+			},
+		],
 	},
 	// Tells Node to use the comments in the /routes/*.js files to generate the documentation.
 	apis: ["./routes/api/*.js"],

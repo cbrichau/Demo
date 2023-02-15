@@ -7,7 +7,7 @@ const {
 
 router.use("/docs", openapiServe, openapiSetup);
 
-const routes = ["authentication", "articles"];
+const routes = ["articles", "authentication", "users"];
 
 routes.forEach((route) => {
 	router.use("/" + route, require("./" + route + ".js"));

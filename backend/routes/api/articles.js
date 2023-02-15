@@ -52,7 +52,7 @@ router.get("/", controller.readAll);
  * @openapi
  * /api/articles/{id}:
  *   get:
- *     summary: Fetches one article.
+ *     summary: Fetches an article.
  *     tags:
  *       - Articles
  *     parameters:
