@@ -1,12 +1,13 @@
-const User = require("../models/User.js");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+import { Request, Response } from "express";
+import User from "../models/User";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 /* ************************************************** *\
 	Sign up
 \* ************************************************** */
 
-exports.signUp = async (req, res) => {
+export const signUp = async (req: Request, res: Response) => {
 	let { email, password, passwordConfirmation } = req.body;
 	let errors = [];
 
@@ -58,7 +59,7 @@ exports.signUp = async (req, res) => {
 	Sign in
 \* ************************************************** */
 
-exports.signIn = async (req, res) => {
+export const signIn = async (req: Request, res: Response) => {
 	let { email, password } = req.body;
 	let errors = [];
 
@@ -83,10 +84,7 @@ exports.signIn = async (req, res) => {
 		});
 	}
 
-	const passwordIsValid = await bcrypt.compare(
-		req.body.password,
-		user.password
-	);
+	const passwordIsValid = await bcrypt.compare(req.body.password, user.password);
 
 	if (!passwordIsValid) {
 		return res.status(401).json({
@@ -106,7 +104,7 @@ exports.signIn = async (req, res) => {
 		expiresIn: "2h",
 	};
 
-	const token = jwt.sign(jwtPayload, process.env.JWT_SECRET, jwtOptions);
+	const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, jwtOptions);
 
 	return res.status(201).json({
 		status: "success",

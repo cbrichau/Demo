@@ -1,10 +1,11 @@
-const Article = require("../models/Article.js");
+import { Request, Response } from "express";
+import Article from "../models/Article";
 
 /* ************************************************** *\
 	Create
 \* ************************************************** */
 
-exports.createOne = async (req, res) => {
+export const createOne = async (req: Request, res: Response) => {
 	const article = await new Article(req.body).save();
 
 	return res.status(201).json({
@@ -19,7 +20,7 @@ exports.createOne = async (req, res) => {
 	Read
 \* ************************************************** */
 
-exports.readAll = async (req, res) => {
+export const readAll = async (req: Request, res: Response) => {
 	const where = {};
 	// if (req.query.property !== undefined)
 	// {
@@ -36,7 +37,7 @@ exports.readAll = async (req, res) => {
 	});
 };
 
-exports.readOne = async (req, res) => {
+export const readOne = async (req: Request, res: Response) => {
 	const article = await Article.findById(req.params.id).exec();
 
 	return res.status(200).json({
@@ -51,17 +52,13 @@ exports.readOne = async (req, res) => {
 	Update
 \* ************************************************** */
 
-exports.updateOne = async (req, res) => {
-	const article = await Article.findOneAndUpdate(
-		{ _id: req.params.id },
-		{ $set: req.body },
-		{ new: true }
-	);
+export const updateOne = async (req: Request, res: Response) => {
+	const article = await Article.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true });
 
 	return res.status(200).json({
 		status: "success",
 		data: {
-			article: { id: article._id },
+			article: { id: article?._id },
 		},
 	});
 };
@@ -70,7 +67,7 @@ exports.updateOne = async (req, res) => {
 	Delete
 \* ************************************************** */
 
-exports.deleteOne = async (req, res) => {
+export const deleteOne = async (req: Request, res: Response) => {
 	const response = await Article.remove({
 		_id: req.params.id,
 	});

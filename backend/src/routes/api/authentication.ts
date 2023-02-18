@@ -1,11 +1,11 @@
-const express = require("express");
-const controller = require("../../controllers/authentication.js");
-const successSchemas = require("../../middlewares/openapi/successSchemas");
-const failSchema = require("../../middlewares/openapi/failSchema");
+import { Router } from "express";
+import * as controller from "../../controllers/authentication";
+import * as successSchemas from "./schemaTemplates/successSchemas";
+import * as failSchema from "./schemaTemplates/failSchema";
 
-const router = express.Router();
+const router = Router();
 
-let schemas = {};
+let schemas: { [key: string]: any } = {};
 
 /* ************************************************** *\
 	Sign up
@@ -107,7 +107,7 @@ router.post("/sign-in", controller.signIn);
 
 schemas["Authentication.SignIn.Response.Fail.401"] = failSchema.withErrors('["Missing credentials", "Invalid credentials"]');
 
-module.exports = {
+export default {
 	router: router,
-	authenticationSchemas: schemas,
+	schemas: schemas,
 };

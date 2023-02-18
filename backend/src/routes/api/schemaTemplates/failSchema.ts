@@ -1,4 +1,4 @@
-exports.withErrors = (errorsExample) => {
+export const withErrors = (errorsExample: string) => {
 	return {
 		type: "object",
 		properties: {

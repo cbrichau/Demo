@@ -1,13 +1,13 @@
-const express = require("express");
-const controller = require("../../controllers/articles.js");
-const Article = require("../../models/Article.js");
-const schemaGenerator = require("mongoose-to-swagger");
-const successSchemas = require("../../middlewares/openapi/successSchemas");
-const failSchema = require("../../middlewares/openapi/failSchema");
+import { Router } from "express";
+import * as controller from "../../controllers/articles";
+import Article from "../../models/Article";
+import schemaGenerator from "mongoose-to-swagger";
+import * as successSchemas from "./schemaTemplates/successSchemas";
+import * as failSchema from "./schemaTemplates/failSchema";
 
-const router = express.Router();
+const router = Router();
 
-let schemas = {};
+let schemas: { [key: string]: any } = {};
 
 /* ************************************************** *\
 	Create
@@ -147,10 +147,10 @@ schemas["Article.Update.Response.Success"] = successSchemas.update("article");
  */
 router.delete("/:id", controller.deleteOne);
 
-schemas["Article.Delete.Response.Success"] = successSchemas.delete();
+schemas["Article.Delete.Response.Success"] = successSchemas.deleteOne();
 schemas["Article.Delete.Response.Fail.400"] = failSchema.withErrors('["Invalid id"]');
 
-module.exports = {
+export default {
 	router: router,
-	articlesSchemas: schemas,
+	schemas: schemas,
 };

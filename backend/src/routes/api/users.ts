@@ -1,14 +1,13 @@
-const express = require("express");
-const controller = require("../../controllers/users.js");
-const { verifyJWT } = require("../../middlewares/authentication.js");
-const User = require("../../models/User.js");
-const schemaGenerator = require("mongoose-to-swagger");
-const successSchemas = require("../../middlewares/openapi/successSchemas");
-const failSchema = require("../../middlewares/openapi/failSchema");
+import { Router } from "express";
+import * as controller from "../../controllers/users";
+import { verifyJWT } from "../../middlewares/authentication";
+import User from "../../models/User";
+import schemaGenerator from "mongoose-to-swagger";
+import * as successSchemas from "./schemaTemplates/successSchemas";
 
-const router = express.Router();
+const router = Router();
 
-let schemas = {};
+let schemas: { [key: string]: any } = {};
 
 /* ************************************************** *\
 	Create
@@ -84,7 +83,7 @@ schemas["User.Update.Response.Success"] = successSchemas.update("user");
 
 // To do
 
-module.exports = {
+export default {
 	router: router,
-	usersSchemas: schemas,
+	schemas: schemas,
 };

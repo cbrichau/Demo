@@ -1,4 +1,5 @@
-const User = require("../models/User.js");
+import { Request, Response } from "express";
+import User from "../models/User";
 
 /* ************************************************** *\
 	Create
@@ -12,9 +13,9 @@ const User = require("../models/User.js");
 
 // readAll To do
 
-exports.readOne = async (req, res) => {
+export const readOne = async (req: Request, res: Response) => {
 	const user = await User.findById(req.params.id);
-	user.password = undefined;
+	// user.password = undefined;
 
 	return res.status(200).json({
 		status: "success",
@@ -28,7 +29,7 @@ exports.readOne = async (req, res) => {
 	Update
 \* ************************************************** */
 
-exports.updateOne = async (req, res) => {
+export const updateOne = async (req: Request, res: Response) => {
 	const updateResult = await User.updateOne(
 		{ _id: req.params.id },
 		{

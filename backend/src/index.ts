@@ -1,9 +1,11 @@
 require("dotenv").config();
-require("./config/database.js").connectDatabase();
+require("./config/database").connectDatabase();
 
-const express = require("express");
-const cors = require("./middlewares/cors.js");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "./middlewares/cors";
+import bodyParser from "body-parser";
+import homeRouter from "./routes/home";
+import apiRouter from "./routes/api/_router";
 
 /* ******************************************** *\
 	Init
@@ -24,13 +26,13 @@ app.use(express.static("public"));
 	Define routes
 \* ******************************************** */
 
-app.use("/", require("./routes/home.js"));
-app.use("/api", require("./routes/api/_router.js"));
+app.use("/", homeRouter);
+app.use("/api", apiRouter);
 
 /* ******************************************** *\
 	Listen
 \* ******************************************** */
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on http://localhost:${process.env.PORT}`);
+	console.log(`Server running on http://localhost:${process.env.PORT}`);
 });

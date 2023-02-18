@@ -1,7 +1,8 @@
-const jwt = require("jsonwebtoken");
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
-exports.verifyJWT = (req, res, next) => {
-	const token = req.headers.authorization.split(" ")[1];
+export const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
+	const token = req.headers.authorization?.split(" ")[1];
 
 	if (!token) {
 		return res.status(401).json({
@@ -13,7 +14,7 @@ exports.verifyJWT = (req, res, next) => {
 	}
 
 	try {
-		const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+		const decodedToken = jwt.verify(token, process.env.JWT_SECRET!);
 		req.user = decodedToken;
 	} catch (err) {
 		return res.status(401).json({
