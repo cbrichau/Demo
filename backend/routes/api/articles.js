@@ -1,7 +1,13 @@
 const express = require("express");
 const controller = require("../../controllers/articles.js");
+const Article = require("../../models/Article.js");
+const schemaGenerator = require("mongoose-to-swagger");
+const successSchemas = require("../../middlewares/openapi/successSchemas");
+const failSchema = require("../../middlewares/openapi/failSchema");
 
 const router = express.Router();
+
+let schemas = {};
 
 /* ************************************************** *\
 	Create
@@ -28,6 +34,9 @@ const router = express.Router();
  */
 router.post("/", controller.createOne);
 
+schemas["Article.Payload"] = schemaGenerator(Article, { omitFields: ["_id"] });
+schemas["Article.CreateOne.Response.Success"] = successSchemas.createOne("article");
+
 /* ************************************************** *\
 	Read
 \* ************************************************** */
@@ -47,6 +56,8 @@ router.post("/", controller.createOne);
  *               $ref: '#/components/schemas/Article.ReadAll.Response.Success'
  */
 router.get("/", controller.readAll);
+
+schemas["Article.ReadAll.Response.Success"] = successSchemas.readAll("articles", schemaGenerator(Article, {}));
 
 /**
  * @openapi
@@ -69,6 +80,8 @@ router.get("/", controller.readAll);
  *               $ref: '#/components/schemas/Article.ReadOne.Response.Success'
  */
 router.get("/:id", controller.readOne);
+
+schemas["Article.ReadOne.Response.Success"] = successSchemas.readOne("article", schemaGenerator(Article, {}));
 
 /* ************************************************** *\
 	Update
@@ -101,6 +114,8 @@ router.get("/:id", controller.readOne);
  */
 router.patch("/:id", controller.updateOne);
 
+schemas["Article.Update.Response.Success"] = successSchemas.update("article");
+
 /* ************************************************** *\
 	Delete
 \* ************************************************** */
@@ -132,4 +147,10 @@ router.patch("/:id", controller.updateOne);
  */
 router.delete("/:id", controller.deleteOne);
 
-module.exports = router;
+schemas["Article.Delete.Response.Success"] = successSchemas.delete();
+schemas["Article.Delete.Response.Fail.400"] = failSchema.withErrors('["Invalid id"]');
+
+module.exports = {
+	router: router,
+	articlesSchemas: schemas,
+};

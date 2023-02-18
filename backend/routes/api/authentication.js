@@ -1,7 +1,11 @@
 const express = require("express");
 const controller = require("../../controllers/authentication.js");
+const successSchemas = require("../../middlewares/openapi/successSchemas");
+const failSchema = require("../../middlewares/openapi/failSchema");
 
 const router = express.Router();
+
+let schemas = {};
 
 /* ************************************************** *\
 	Sign up
@@ -48,6 +52,10 @@ const router = express.Router();
  *               $ref: '#/components/schemas/Authentication.SignUp.Response.Fail.409'
  */
 router.post("/sign-up", controller.signUp);
+
+schemas["Authentication.SignUp.Response.Success"] = successSchemas.createOne("user");
+schemas["Authentication.SignUp.Response.Fail.400"] = failSchema.withErrors('["Missing email", "Missing password", "Invalid password confirmation"]');
+schemas["Authentication.SignUp.Response.Fail.409"] = failSchema.withErrors('["User already exists"]');
 
 /* ************************************************** *\
 	Sign in
@@ -97,4 +105,9 @@ router.post("/sign-up", controller.signUp);
  */
 router.post("/sign-in", controller.signIn);
 
-module.exports = router;
+schemas["Authentication.SignIn.Response.Fail.401"] = failSchema.withErrors('["Missing credentials", "Invalid credentials"]');
+
+module.exports = {
+	router: router,
+	authenticationSchemas: schemas,
+};

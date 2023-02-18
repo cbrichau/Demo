@@ -1,4 +1,4 @@
-exports.failSchema = (errorsExample) => {
+exports.withErrors = (errorsExample) => {
 	return {
 		type: "object",
 		properties: {

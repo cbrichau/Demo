@@ -1,9 +1,9 @@
 const swaggerUi = require("swagger-ui-express"); // Creates the Swagger UI page from the given definitions.
 const swaggerJsdoc = require("swagger-jsdoc"); // Generates OpenAPI definitions from JSDoc comments.
 
-const { articlesSchemas } = require("./articles.js");
-const { authenticationSchemas } = require("./authentication.js");
-const { usersSchemas } = require("./users.js");
+const { articlesSchemas } = require("../../routes/api/articles.js");
+const { authenticationSchemas } = require("../../routes/api/authentication.js");
+const { usersSchemas } = require("../../routes/api/users.js");
 
 const swaggerDoc = swaggerJsdoc({
 	definition: {

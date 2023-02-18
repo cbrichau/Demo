@@ -1,8 +1,14 @@
 const express = require("express");
 const controller = require("../../controllers/users.js");
 const { verifyJWT } = require("../../middlewares/authentication.js");
+const User = require("../../models/User.js");
+const schemaGenerator = require("mongoose-to-swagger");
+const successSchemas = require("../../middlewares/openapi/successSchemas");
+const failSchema = require("../../middlewares/openapi/failSchema");
 
 const router = express.Router();
+
+let schemas = {};
 
 /* ************************************************** *\
 	Create
@@ -33,13 +39,10 @@ const router = express.Router();
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User.ReadOne.Response.Success'
- *       401:
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User.ReadOne.Response.Success'
  */
 router.get("/:id", verifyJWT, controller.readOne);
+
+schemas["User.ReadOne.Response.Success"] = successSchemas.readOne("user", schemaGenerator(User, {}));
 
 /* ************************************************** *\
 	Update
@@ -72,10 +75,16 @@ router.get("/:id", verifyJWT, controller.readOne);
  */
 router.patch("/:id", verifyJWT, controller.updateOne);
 
+schemas["User.Payload"] = schemaGenerator(User, { omitFields: ["_id"] });
+schemas["User.Update.Response.Success"] = successSchemas.update("user");
+
 /* ************************************************** *\
 	Delete
 \* ************************************************** */
 
 // To do
 
-module.exports = router;
+module.exports = {
+	router: router,
+	usersSchemas: schemas,
+};
