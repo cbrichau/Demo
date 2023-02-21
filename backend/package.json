@@ -5,12 +5,12 @@
 	"main": "src/index.ts",
 	"scripts": {
 		"backend": "nodemon src/index.ts",
-		"start": "node src/index.ts",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"start": "node src/index.ts"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@sanity/client": "^5.2.2",
 		"bcrypt": "^5.1.0",
 		"body-parser": "^1.20.1",
 		"config": "^3.3.9",

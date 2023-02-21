@@ -24,18 +24,25 @@ let schemas: { [key: string]: any } = {};
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 properties:
- *                   _id:
- *                     type: string
- *                     example: "qsdfghjklm"
- *                   title:
- *                     type: string
- *                     example: "Lorem ipsum"
- *                   body:
- *                     type: string
- *                     example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                   example: "success"
+ *                 data:
+ *                   properties:
+ *                     articles:
+ *                       type: array
+ *                       items:
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                             example: "qsdfghjklm"
+ *                           title:
+ *                             type: string
+ *                             example: "Lorem ipsum"
+ *                           body:
+ *                             type: string
+ *                             example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
  */
 router.get("/", controller.readAll);
 
@@ -58,19 +65,26 @@ router.get("/", controller.readAll);
  *           application/json:
  *             schema:
  *               properties:
- *                 title:
+ *                 status:
  *                   type: string
- *                   example: "Lorem ipsum"
- *                 body:
- *                   type: string
- *                   example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
- *                 comments:
- *                   type: array
- *                   items:
- *                     properties:
- *                       body:
- *                         type: string
- *                         example: "Great article!"
+ *                   example: "success"
+ *                 data:
+ *                   properties:
+ *                     article:
+ *                       properties:
+ *                         title:
+ *                           type: string
+ *                           example: "Lorem ipsum"
+ *                         body:
+ *                           type: string
+ *                           example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
+ *                         comments:
+ *                           type: array
+ *                           items:
+ *                             properties:
+ *                               body:
+ *                                 type: string
+ *                                 example: "Great article!"
  */
 router.get("/:id", controller.readOne);
 

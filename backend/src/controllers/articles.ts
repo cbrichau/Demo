@@ -25,7 +25,16 @@ export const readAll = async (req: Request, res: Response) => {
 };
 
 export const readOne = async (req: Request, res: Response) => {
-	const article = await client.fetch("*[_id == $id]{title,body}", { id: req.params.id });
+	const sanity = {
+		query: `*[_type == "article"]{
+			title,
+			body,
+			"comments": *[_type == "comment" && commentTo._ref == $id]{body}
+		}`,
+		params: { id: req.params.id },
+	};
+
+	const article = await client.fetch(sanity.query, sanity.params);
 
 	return res.status(200).json({
 		status: "success",
