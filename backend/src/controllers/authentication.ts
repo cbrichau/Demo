@@ -60,10 +60,7 @@ export const signUp = async (req: Request, res: Response) => {
 \* ************************************************** */
 
 export const signIn = async (req: Request, res: Response) => {
-	let { email, password } = req.body;
-	let errors = [];
-
-	if (!email || !password) {
+	if (!req.body?.email || !req.body?.password) {
 		return res.status(401).json({
 			status: "fail",
 			data: {
@@ -72,7 +69,7 @@ export const signIn = async (req: Request, res: Response) => {
 		});
 	}
 
-	email = email.toLowerCase();
+	const email = req.body.email.toLowerCase();
 	const user = await User.findOne({ email: email }).exec();
 
 	if (!user) {
@@ -95,15 +92,8 @@ export const signIn = async (req: Request, res: Response) => {
 		});
 	}
 
-	const jwtPayload = {
-		id: user._id,
-		email: user.email,
-	};
-
-	const jwtOptions = {
-		expiresIn: "2h",
-	};
-
+	const jwtPayload = { id: user._id, email: user.email };
+	const jwtOptions = { expiresIn: "2h" };
 	const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!, jwtOptions);
 
 	return res.status(201).json({

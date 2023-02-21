@@ -1,17 +1,23 @@
-import { request } from "express";
 import supertest from "supertest";
-import authentication from "./authentication";
+import { createServer } from "../../config/server";
+import mongoose from "mongoose";
 
-describe("POST /sign-up", () => {
+const app = createServer();
+
+afterAll(() => {
+	mongoose.connection.close();
+});
+
+describe("POST /api/authentication/sign-in", () => {
 	describe("Given valid credentials", () => {
-		test("Responds with a 200 json response", async () => {
-			const response = await request(authentication).post("/").send({
-				email: "email@example.com",
-				password: "password",
-				passwordConfirmation: "password",
-			});
-			expect(response.statusCode).toBe(201);
-			// expect(response.headers["content-type"]).toEqual(expect.stringContaining("json"));
+		test("Responds with a 201 JSON response containing a JWToken", async () => {
+			await supertest(app)
+				.post("/api/authentication/sign-in")
+				.send({
+					email: "email@example.com",
+					password: "password",
+				})
+				.expect(201);
 		});
 	});
 });
