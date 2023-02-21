@@ -32,10 +32,10 @@ let schemas: { [key: string]: any } = {};
  *                     example: "qsdfghjklm"
  *                   title:
  *                     type: string
- *                     example: "Title"
+ *                     example: "Lorem ipsum"
  *                   body:
  *                     type: string
- *                     example: "Body"
+ *                     example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
  */
 router.get("/", controller.readAll);
 
@@ -60,10 +60,17 @@ router.get("/", controller.readAll);
  *               properties:
  *                 title:
  *                   type: string
- *                   example: "Title"
+ *                   example: "Lorem ipsum"
  *                 body:
  *                   type: string
- *                   example: "Body"
+ *                   example: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent mi mauris, pulvinar eu interdum ut, pellentesque in turpis. "
+ *                 comments:
+ *                   type: array
+ *                   items:
+ *                     properties:
+ *                       body:
+ *                         type: string
+ *                         example: "Great article!"
  */
 router.get("/:id", controller.readOne);
 
